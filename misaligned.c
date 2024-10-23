@@ -24,6 +24,7 @@ int printColorMap(char *stringColorMap) {
             // printf("%d | %s | %s\n", i * 5 + j, majorColor[i], minorColor[i]);
         }
     }
+    printString(stringColorMap);
     return i * j;
 }
 
