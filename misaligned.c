@@ -1,6 +1,5 @@
 #include <assert.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 void printString(char *string){
@@ -14,7 +13,7 @@ int printColorMap(char *stringColorMap) {
     int i = 0, j = 0;
     for(i = 0; i < 5; i++) {
         for(j = 0; j < 5; j++) {
-            itoa(i * 5 + j,tempString,10);
+            sprintf(tempString, "%d", i * 5 + j);
             strcpy(stringColorMap, tempString);
             strcat(stringColorMap, " | ");
             strcat(stringColorMap, majorColor[i]);
