@@ -2,18 +2,27 @@
 #include <assert.h>
 
 int alertFailureCount = 0;
+int testCelcius;
 
-int networkAlertStub(float celcius) {
-    printf("ALERT: Temperature is %.1f celcius.\n", celcius);
+int mockNetworkAlert(float celcius) {
+    testCelcius = celcius;
+    printf("MOCK ALERT: Temperature is %.1f celcius.\n", celcius);
     // Return 200 for ok
     // Return 500 for not-ok
     // stub always succeeds and returns 200
-    return 200;
+    return 500;
 }
 
-void alertInCelcius(float farenheit) {
+int realNetworkAlert(float celcius) {
+    printf("REAL ALERT: Temperature is %.1f celcius.\n", celcius);
+    // Return 200 for ok
+    // Return 500 for not-ok
+    return (celcius > 200) ? 500 : 200;
+}
+
+void alertInCelcius(float farenheit, int(*networkAlertFunc)(float)) {
     float celcius = (farenheit - 32) * 5 / 9;
-    int returnCode = networkAlertStub(celcius);
+    int returnCode = networkAlertFunc(celcius);
     if (returnCode != 200) {
         // non-ok response is not an error! Issues happen in life!
         // let us keep a count of failures to report
@@ -24,9 +33,16 @@ void alertInCelcius(float farenheit) {
 }
 
 int main() {
-    alertInCelcius(400.5);
-    alertInCelcius(303.6);
-    printf("%d alerts failed.\n", alertFailureCount);
-    printf("All is well (maybe!)\n");
+    alertInCelcius(103.6, mockNetworkAlert);
+    alertInCelcius(400.5, mockNetworkAlert);
+    assert(alertFailureCount == 2);
+    printf("\n%d alerts failed: ", alertFailureCount);
+    
+    alertInCelcius(103.6, realNetworkAlert);
+    alertInCelcius(400.5, realNetworkAlert);
+    assert(alertFailureCount == 3);
+    printf("\n%d alerts failed: ", alertFailureCount);
+    
+    printf("\nAll is well (maybe!)");
     return 0;
 }
