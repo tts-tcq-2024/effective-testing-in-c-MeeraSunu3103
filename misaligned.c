@@ -29,7 +29,7 @@ int printColorMap(char *stringColorMap) {
 }
 
 int main() {
-    char expectedColorMap[200] = 
+    char expectedColorMap[500] = 
         "0 | White | Blue\n"
         "1 | White | Orange\n"
         "2 | White | Green\n"
@@ -58,7 +58,7 @@ int main() {
     char stringColorMap[] = {"\0"};
     int result = printColorMap(stringColorMap);
     assert(result == 25);
-    assert(strcmp(stringColorMap,stringColorMap) == 0);
+    assert(strcmp(stringColorMap,expectedColorMap) == 0);
     printf("All is well (maybe!)\n");
     return 0;
 }
