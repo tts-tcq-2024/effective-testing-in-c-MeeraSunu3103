@@ -28,7 +28,7 @@ void alertInCelcius(float farenheit, int(*networkAlertFunc)(float)) {
         // let us keep a count of failures to report
         // However, this code doesn't count failures!
         // Add a test below to catch this bug. Alter the stub above, if needed.
-        alertFailureCount += 0;
+        alertFailureCount += 1;
     }
 }
 
@@ -36,12 +36,12 @@ int main() {
     alertInCelcius(103.6, mockNetworkAlert);
     alertInCelcius(400.5, mockNetworkAlert);
     assert(alertFailureCount == 2);
-    printf("\n%d alerts failed: ", alertFailureCount);
+    printf("%d alerts failed \n\n", alertFailureCount);
     
     alertInCelcius(103.6, realNetworkAlert);
     alertInCelcius(400.5, realNetworkAlert);
     assert(alertFailureCount == 3);
-    printf("\n%d alerts failed: ", alertFailureCount);
+    printf("%d alerts failed \n", alertFailureCount);
     
     printf("\nAll is well (maybe!)");
     return 0;
