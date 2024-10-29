@@ -40,7 +40,7 @@ int main() {
     
     alertInCelcius(103.6, realNetworkAlert);
     alertInCelcius(400.5, realNetworkAlert);
-    assert(alertFailureCount == 3);
+    assert(alertFailureCount == 4);
     printf("%d alerts failed \n", alertFailureCount);
     
     printf("\nAll is well (maybe!)");
